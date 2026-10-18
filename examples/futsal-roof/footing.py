@@ -23,8 +23,6 @@ FY = 4000.0           # ksc SD40
 FYT = 4000.0          # ksc ปลอก DB10 (SD40)
 COVER = 7.5           # cm หล่อติดดิน (ประกาศ มท. 2567 ตาราง 13)
 GAMMA_C = 2.4         # t/m³
-PED = 60.0            # cm ตอม่อ 60 × 60
-PLATE = (45.0, 45.0)  # cm แผ่นฐาน N (ในระนาบโครง) × B
 BOLT_EDGE = 5.0       # cm ระยะศูนย์สลักถึงขอบแผ่น
 BOLT_D = 2.4          # cm M24
 BOLT_ASE = 3.53       # cm² พื้นที่รับแรงดึงของเกลียว M24
@@ -36,11 +34,16 @@ HEF = 75.0            # cm ความลึกฝังสลักหัว�
 FY_PLATE = 2500.0
 PHI = dict(flex=0.90, shear=0.85, bear=0.70)
 
-col = rm.H_CATALOG["H-200×200×8×12"]
-D_COL, BF_COL, TF_COL = col["h"], col["b"], col["tf"]
 
 # ================================================================ แรงที่ฐานเสาจากแบบจำลองหลังคา
 sizes, nodes, members, supports, cases, case_res, combos, W, rows, defl = design.select()
+COL_NAME = sizes["COL"]
+col = rm.H_CATALOG[COL_NAME]
+D_COL, BF_COL, TF_COL = col["h"], col["b"], col["tf"]
+_np = math.ceil((max(D_COL, BF_COL) + 20) / 5) * 5
+PLATE = (float(_np), float(_np))          # cm แผ่นฐาน = ขนาดเสา + 10 cm ต่อข้าง (ปัด 5 cm)
+PED = PLATE[0] + 15                       # cm ตอม่อ = แผ่นฐาน + 7.5 cm ต่อข้าง
+PLATE_T_STD = (20, 25, 28, 32, 36, 40, 45, 50)   # mm ความหนาเหล็กแผ่นในตลาด
 br = extras.bracing(W)
 FV_BR = br["Fv_brace"]                    # kg แรงดิ่งเพิ่มจาก X-bracing (ระดับใช้งาน)
 H_BR = br["H"] / 4                        # kg แรงราบแนวยาวที่ฐานเสาช่วงค้ำยัน (ระดับใช้งาน)
@@ -230,8 +233,8 @@ def design_flexure(Mu, b, d, h):
 
 
 def select_footing():
-    for B in np.arange(120, 301, 10):
-        for t in (40, 45, 50, 55, 60):
+    for B in np.arange(120, 401, 10):
+        for t in (40, 45, 50, 55, 60, 70):
             ok, soil, wts = soil_checks(B, t)
             if not ok:
                 continue
@@ -279,6 +282,7 @@ def run():
     B, t, soil, wts, st, d, phi_vc1, phi_vc2, ldh = select_footing()
     bp, fpmax = base_plate()
     anc = anchors(bp["T"], bp["V"], HEF)
+    bp["t_std"] = next(x for x in PLATE_T_STD if x >= bp["t"] * 10)
     As_bot, As_bot_req, As_min = design_flexure(st["Mu"], B, d, t)
     _, As_top_req, _ = design_flexure(st["Mu_top"], B, d, t)
     As_top = 1.33 * As_top_req                               # เหล็กบนรับโมเมนต์ขณะลมยก (ACI 9.6.1.3: 4/3 ของที่ต้องการ)

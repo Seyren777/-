@@ -44,7 +44,7 @@ for k in range(nb):
     ax.plot([-B / 2 + 0.075, B / 2 - 0.075], [x, x], color=REBAR, lw=0.6, alpha=0.55)
 ax.add_patch(Rectangle((-P / 2, -P / 2), P, P, fc="#d1d5db", ec=INK, lw=1.2))
 ax.add_patch(Rectangle((-N / 2, -N / 2), N, N, fc="#94a3b8", ec=INK, lw=1.0))
-h, bf, tw, tf = 0.2, 0.2, 0.008, 0.012
+h, bf, tw, tf = ft.D_COL / 100, ft.BF_COL / 100, ft.col['tw'] / 100, ft.TF_COL / 100
 for x0 in (-h / 2, h / 2 - tf):                       # ปีกตั้งฉากกับแนวโครง (แกนแข็งรับโมเมนต์ในระนาบโครง)
     ax.add_patch(Rectangle((x0, -bf / 2), tf, bf, fc=STEEL, ec="none"))
 ax.add_patch(Rectangle((-h / 2, -tw / 2), h, tw, fc=STEEL, ec="none"))
@@ -60,7 +60,7 @@ ax.text(-B / 2 - 0.12, 0, "A", fontsize=12, fontweight="bold", va="center")
 ax.plot([-B / 2 - 0.05, B / 2 + 0.05], [0, 0], color=INK, lw=0.8, ls="--")
 dim(ax, (-B / 2, B / 2 + 0.22), (B / 2, B / 2 + 0.22), f"{B:.2f} m")
 dim(ax, (-B / 2 - 0.25, -B / 2), (-B / 2 - 0.25, B / 2), f"{B:.2f} m", rot=90)
-notes = [f"ตอม่อ {ft.PED/100:.2f} × {ft.PED/100:.2f} m", f"แผ่นฐาน PL {ft.PLATE[0]*10:.0f}×{ft.PLATE[1]*10:.0f}×30 mm",
+notes = [f"ตอม่อ {ft.PED/100:.2f} × {ft.PED/100:.2f} m", f"แผ่นฐาน PL {ft.PLATE[0]*10:.0f}×{ft.PLATE[1]*10:.0f}×{r['bp']['t_std']} mm",
          "สลักยึด 6-M24 (หัวหมุด) ฝังลึก 0.75 m", f"เหล็กล่าง {BOT} ทั้งสองทาง", f"เหล็กบน {TOP} ทั้งสองทาง"]
 for k, n in enumerate(notes):
     ax.text(-B / 2, -B / 2 - 0.6 - k * 0.17, "• " + n, fontsize=10, color=INK)
@@ -79,8 +79,8 @@ ax.plot([P / 2, B / 2 + 0.3], [0, 0], color="#a16207", lw=1.2)
 ax.text(B / 2 + 0.3, 0.03, "±0.00 พื้นวางบนดิน", ha="right", va="bottom", fontsize=9, color="#a16207")
 ax.add_patch(Rectangle((-N / 2, 0.025), N, 0.03, fc="#94a3b8", ec=INK, lw=1))
 ax.add_patch(Rectangle((-N / 2, 0), N, 0.025, fc="#fde68a", ec=MUTED, lw=0.6))
-ax.add_patch(Rectangle((-bf / 2, 0.055), bf, 0.7, fc="none", ec=STEEL, lw=1.4))
-ax.text(0, 0.8, "เสา H-200×200×8×12", ha="center", fontsize=9.5, color=INK)
+ax.add_patch(Rectangle((-h / 2, 0.055), h, 0.7, fc="none", ec=STEEL, lw=1.4))
+ax.text(0, 0.8, f"เสา {ft.COL_NAME}", ha="center", fontsize=9.5, color=INK)
 c = ft.COVER / 100
 ax.plot([-B / 2 + c, B / 2 - c], [-DF + c, -DF + c], color=REBAR, lw=1.8)
 ax.plot([-B / 2 + c, B / 2 - c], [ztop_f - 0.05, ztop_f - 0.05], color=REBAR, lw=1.3)

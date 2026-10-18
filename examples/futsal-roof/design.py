@@ -11,6 +11,7 @@ import roof_model as rm
 E, FY = rm.E, rm.FY
 RT = math.sqrt(E / FY)
 OMEGA_C = OMEGA_T = OMEGA_B = 1.67
+DCR_LIMIT = 0.50   # เกณฑ์ DCR ที่ผู้ใช้กำหนด (มาตรฐานยอมให้ถึง 1.00)
 
 # ความยาวไร้ค้ำยัน (cm) และ K — กลุ่ม → (Kx·Lx, Ky·Ly, Lb)
 def unbraced(group, L):
@@ -138,29 +139,66 @@ def deflections(nodes, case_res):
     return checks
 
 
-def select():
-    hss = sorted(rm.HSS_CATALOG, key=lambda k: rm.HSS_CATALOG[k]["w"])
-    hsh = sorted(rm.H_CATALOG, key=lambda k: rm.H_CATALOG[k]["w"])
-    cand = {"TC": hss, "BC": hss, "WEB": [k for k in hss if rm.HSS_CATALOG[k]["H"] <= 7.5], "COL": hsh}
-    pick = {g: 0 for g in cand}
+def _evaluate(sizes):
+    nodes, members, supports, cases, case_res, combos, W = rm.run_all(sizes)
+    rows = check(nodes, members, combos)
+    defl = deflections(nodes, case_res)
+    bad = {r["group"] for r in rows if r["dcr"] > DCR_LIMIT}
+    for name, (val, lim) in defl.items():
+        if val > lim:
+            bad.add("COL" if "หัวเสา" in name else "TC")
+            if "หัวเสา" not in name:
+                bad.add("BC")
+    return bad, (sizes, nodes, members, supports, cases, case_res, combos, W, rows, defl)
+
+
+def _frame_weight(out):
+    nodes, members = out[1], out[2]
+    return sum(m["sec"]["w"] * rm.length(nodes, m) / 100 for m in members)
+
+
+def _grow_truss(col, cand):
+    """เสาคงที่ ขยายกลุ่มโครงถักที่ไม่ผ่านจนผ่านครบ แล้วลดทีละกลุ่มกลับ — คืน None ถ้าเสาเองไม่ผ่าน"""
+    groups = ("TC", "BC", "WEB")
+    pick = {g: 0 for g in groups}
+    sizes = lambda p: {**{g: cand[g][p[g]] for g in groups}, "COL": col}
     for _ in range(80):
-        sizes = {g: cand[g][pick[g]] for g in cand}
-        nodes, members, supports, cases, case_res, combos, W = rm.run_all(sizes)
-        rows = check(nodes, members, combos)
-        defl = deflections(nodes, case_res)
-        bad = {r["group"] for r in rows if r["dcr"] > 1.0}
-        for name, (val, lim) in defl.items():
-            if val > lim:
-                bad.add("COL" if "หัวเสา" in name else "TC")
-                if "หัวเสา" not in name:
-                    bad.add("BC")
+        bad, out = _evaluate(sizes(pick))
         if not bad:
-            return sizes, nodes, members, supports, cases, case_res, combos, W, rows, defl
+            break
+        bad.discard("COL")                               # เสาไม่ผ่านชั่วคราวได้ — โครงถักที่แข็งขึ้นอาจลดแรงในเสา
+        if not bad:
+            return None
         for g in bad:
             if pick[g] + 1 >= len(cand[g]):
-                raise RuntimeError(f"ไม่มีหน้าตัดในรายการที่ผ่านสำหรับกลุ่ม {g}")
+                return None
             pick[g] += 1
-    raise RuntimeError("เลือกหน้าตัดไม่ลู่เข้า")
+    else:
+        return None
+    improved = True
+    while improved:
+        improved = False
+        for g in groups:
+            for k in range(pick[g]):
+                bad, trial_out = _evaluate(sizes(dict(pick, **{g: k})))
+                if not bad:
+                    pick, out, improved = dict(pick, **{g: k}), trial_out, True
+                    break
+    return out
+
+
+def select():
+    """ลองเสาทุกขนาดในรายการ · แต่ละขนาดหาโครงถักที่เบาที่สุดที่ผ่าน · เลือกชุดที่น้ำหนักเหล็กรวมน้อยที่สุด"""
+    hss = sorted(rm.HSS_CATALOG, key=lambda k: rm.HSS_CATALOG[k]["w"])
+    cand = {"TC": hss, "BC": hss, "WEB": [k for k in hss if rm.HSS_CATALOG[k]["H"] <= 7.5]}
+    best = None
+    for col in sorted(rm.H_CATALOG, key=lambda k: rm.H_CATALOG[k]["w"]):
+        out = _grow_truss(col, cand)
+        if out and (best is None or _frame_weight(out) < _frame_weight(best)):
+            best = out
+    if best is None:
+        raise RuntimeError("ไม่มีชุดหน้าตัดในรายการที่ผ่านเกณฑ์")
+    return best
 
 
 if __name__ == "__main__":

@@ -22,7 +22,7 @@ def lipped_channel(h, b, d, t):
 PURLINS = {"C100×50×20×2.3": (100, 50, 20, 2.3), "C125×50×20×2.3": (125, 50, 20, 2.3),
            "C125×50×20×3.2": (125, 50, 20, 3.2), "C150×50×20×2.3": (150, 50, 20, 2.3),
            "C150×50×20×3.2": (150, 50, 20, 3.2)}
-PURLIN_MAX_RATIO = 0.75   # เผื่อการโก่งเฉพาะที่ของเหล็กขึ้นรูปเย็นที่การตรวจแบบง่ายนี้ไม่ได้คิด
+PURLIN_MAX_RATIO = design.DCR_LIMIT   # ใช้เกณฑ์เดียวกับโครงหลังคา (≤ 0.75 เผื่อการโก่งเฉพาะที่ของเหล็กขึ้นรูปเย็น)
 
 
 def purlin():
@@ -63,7 +63,8 @@ def bracing(W_frame):
     Ld = math.hypot(rm.BAY / 100, h)
     T = H / panels * Ld / (rm.BAY / 100)
     rod_d = next(d for d in (12, 16, 20, 25)
-                 if min(2400 * math.pi * (d / 20) ** 2 / 1.67, 3900 * 0.75 * math.pi * (d / 20) ** 2 / 2.0) >= T)
+                 if design.DCR_LIMIT * min(2400 * math.pi * (d / 20) ** 2 / 1.67,
+                                           3900 * 0.75 * math.pi * (d / 20) ** 2 / 2.0) >= T)
     # คานยึดหัวเสา (eave strut) □75×75×3.2 ยาว 4.5 m รับแรงอัด H/2
     strut = rm.HSS_CATALOG["□75×75×3.2"]
     Pc, lam, _ = design.compression(strut, rm.BAY, rm.BAY)
