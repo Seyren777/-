@@ -12,10 +12,11 @@ import design
 import extras
 import roof_model as rm
 
-FONT_DIR = "/usr/share/fonts/opentype/tlwg/"
-for f in ("Loma.otf", "Loma-Bold.otf"):
-    font_manager.fontManager.addfont(FONT_DIR + f)
-plt.rcParams["font.family"] = ["Loma", "DejaVu Sans"]
+import os
+FONT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
+for f in ("Sarabun-Regular.ttf", "Sarabun-Bold.ttf"):
+    font_manager.fontManager.addfont(os.path.join(FONT_DIR, f))
+plt.rcParams["font.family"] = ["Sarabun", "DejaVu Sans"]
 
 INK, MUTED, GRID = "#1f2937", "#6b7280", "#d1d5db"
 TENSION, COMPRESSION = "#2563eb", "#dc2626"

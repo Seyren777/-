@@ -1,0 +1,332 @@
+<!doctype html><html lang='th'><head><meta charset='utf-8'><title>รายการคำนวณ หลังคาสนามฟุตซอล</title><style>
+@font-face { font-family: Sarabun; src: url('fonts/Sarabun-Regular.ttf'); font-weight: 400; }
+@font-face { font-family: Sarabun; src: url('fonts/Sarabun-SemiBold.ttf'); font-weight: 600; }
+@font-face { font-family: Sarabun; src: url('fonts/Sarabun-Bold.ttf'); font-weight: 700; }
+@font-face { font-family: Sarabun; src: url('fonts/Sarabun-Italic.ttf'); font-style: italic; }
+@page { size: A4; margin: 20mm 18mm 18mm 22mm;
+  @top-left { content: "รายการคำนวณโครงสร้างเบื้องต้น — หลังคาโค้งสนามฟุตซอล 18 × 27 m"; font: 9pt Sarabun; color: #6b7280; }
+  @top-right { content: "ฉบับร่างเพื่อตรวจทาน"; font: 9pt Sarabun; color: #b45309; }
+  @bottom-right { content: "หน้า " counter(page) " / " counter(pages); font: 9pt Sarabun; color: #6b7280; } }
+@page cover { margin: 0; @top-left { content: none; } @top-right { content: none; } @bottom-right { content: none; } }
+* { box-sizing: border-box; }
+body { font-family: Sarabun, sans-serif; font-size: 10.5pt; line-height: 1.55; color: #1f2937; margin: 0; }
+h1 { font-size: 15pt; color: #0f3d5c; border-bottom: 2px solid #0f3d5c; padding: 3mm 0 2mm; margin: 0 0 4mm; break-after: avoid; line-height: 1.7; }
+h2 { font-size: 12pt; color: #0f3d5c; margin: 3.5mm 0 2mm; padding-top: 1.5mm; line-height: 1.7; break-after: avoid; }
+.calc, table, figure { padding-top: 0.3mm; }
+.chapter { break-before: page; }
+table { border-collapse: collapse; width: 100%; margin: 2mm 0 4mm; font-size: 9.5pt; break-inside: auto; }
+th, td { border: 0.6pt solid #9ca3af; padding: 1.2mm 2mm; vertical-align: top; }
+th { background: #e8eef4; font-weight: 600; text-align: left; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+tr { break-inside: avoid; }
+.ok { color: #15803d; font-weight: 600; } .ng { color: #b91c1c; font-weight: 700; }
+.note { background: #fff7ed; border-left: 3pt solid #b45309; padding: 2.5mm 3.5mm; margin: 3mm 0; font-size: 9.5pt; }
+.calc { background: #f8fafc; border: 0.6pt solid #cbd5e1; padding: 2.5mm 3.5mm; margin: 2mm 0 4mm; break-inside: avoid; }
+.calc div { display: grid; grid-template-columns: 46mm 1fr; column-gap: 3mm; margin: 0.6mm 0; } .calc .k { color: #475569; }
+figure { margin: 3mm 0 5mm; text-align: center; break-inside: avoid; }
+figure img { max-width: 100%; max-height: 205mm; }
+figcaption { font-size: 9.5pt; color: #475569; margin-top: 1.5mm; }
+.small { font-size: 8.6pt; } .small td, .small th { padding: 0.6mm 1.5mm; }
+.cover { page: cover; height: 297mm; padding: 34mm 24mm 22mm; position: relative; background: linear-gradient(#0f3d5c 0 84mm, white 84mm); }
+.cover .tag { color: #cfe3f2; font-size: 11pt; letter-spacing: 0.5pt; }
+.cover .title { color: white; font-size: 25pt; font-weight: 700; line-height: 1.25; margin-top: 3mm; }
+.cover .meta { margin-top: 30mm; font-size: 12pt; } .cover .meta td { border: none; padding: 1.5mm 0; }
+.cover .meta td:first-child { width: 45mm; color: #475569; }
+.cover img { width: 100%; margin-top: 6mm; }
+.sign { position: absolute; bottom: 22mm; left: 24mm; right: 24mm; display: flex; gap: 10mm; }
+.sign div { flex: 1; font-size: 10.5pt; text-align: center; line-height: 1.9; }
+.draft { position: absolute; top: 62mm; right: 24mm; border: 1.5pt solid #fbbf24; color: #fbbf24; padding: 1.5mm 4mm;
+          font-weight: 700; font-size: 11pt; transform: rotate(-4deg); }
+.toc td { border: none; border-bottom: 0.5pt dotted #9ca3af; padding: 1.4mm 0; font-size: 11pt; }
+</style></head><body>
+<section class='cover'>
+<div class='tag'>รายการคำนวณโครงสร้าง (เบื้องต้น)</div>
+<div class='title'>หลังคาโครงเหล็กโค้ง<br>สนามฟุตซอล 18 × 27 เมตร</div>
+<div class='draft'>ฉบับร่าง — ยังไม่ได้รับรอง</div>
+<table class='meta'>
+<tr><td>สถานที่</td><td>ในเขตโรงเรียน (ระบุชื่อ) จังหวัดอุทัยธานี</td></tr>
+<tr><td>ลักษณะอาคาร</td><td>หลังคาเปิดโล่งรอบด้าน · ชายคา +7.00 m · ยอด +9.00 m</td></tr>
+<tr><td>ระบบโครงสร้าง</td><td>โครงถักเหล็กโค้ง 7 โครง @ 4.50 m บนเสาเหล็ก H 14 ต้น</td></tr>
+<tr><td>มาตรฐานอ้างอิง</td><td>กฎกระทรวง พ.ศ. 2566 · ประกาศ มท. 2567 · AISC 360-16 (ASD)</td></tr>
+<tr><td>วันที่จัดทำ</td><td>18 ต.ค. 2569</td></tr>
+</table><img src='cover_3d.png'>
+<div class='sign'><div>ลงชื่อ ..................................... ผู้คำนวณ<br>(.....................................)<br>วิศวกรโยธา เลขทะเบียน ................</div><div>ลงชื่อ ..................................... ผู้ตรวจสอบ<br>(.....................................)<br>วิศวกรโยธา เลขทะเบียน ................</div></div>
+</section>
+<section class='chapter'><h1>สารบัญ</h1><table class='toc'>
+<tr><td>1. ข้อมูลโครงการและเกณฑ์การออกแบบ</td></tr>
+<tr><td>2. น้ำหนักบรรทุก</td></tr>
+<tr><td>3. แบบจำลองโครงสร้าง</td></tr>
+<tr><td>4. ชุดน้ำหนักบรรทุก</td></tr>
+<tr><td>5. ผลการวิเคราะห์</td></tr>
+<tr><td>6. การตรวจสอบหน้าตัด</td></tr>
+<tr><td>7. ระยะแอ่นตัว</td></tr>
+<tr><td>8. แป โครงค้ำยัน และคานยึดหัวเสา</td></tr>
+<tr><td>9. แรงที่ฐานเสาสำหรับออกแบบฐานราก</td></tr>
+<tr><td>10. ปริมาณเหล็กโดยประมาณ</td></tr>
+<tr><td>11. การตรวจสอบความถูกต้องของการคำนวณ</td></tr>
+<tr><td>12. สมมติฐานและข้อจำกัด</td></tr>
+<tr><td> ภาคผนวก ก — ซองแรงของชิ้นส่วนทุกชิ้น</td></tr>
+</table>
+<div class='note'><b>สถานะเอกสาร:</b> รายการคำนวณนี้เป็นการออกแบบเบื้องต้นเพื่อประมาณขนาดหน้าตัดและปริมาณเหล็ก จัดทำด้วยโปรแกรมช่วยคำนวณ ต้องให้วิศวกรผู้ได้รับใบอนุญาตตามกฎหมายว่าด้วยวิศวกรตรวจสอบและลงนามก่อนใช้ก่อสร้าง โดยเฉพาะค่าที่ระบุไว้ในบทที่ 12</div></section>
+<section class='chapter'><h1>1. ข้อมูลโครงการและเกณฑ์การออกแบบ</h1>
+<h2>1.1 ข้อมูลโครงการ</h2><table>
+<tr><th style='width:38mm'>ขนาดผัง</th><td>18.00 × 27.00 m (ระยะศูนย์กลางเสา)</td></tr>
+<tr><th style='width:38mm'>ช่วงพาด</th><td>18.00 m</td></tr>
+<tr><th style='width:38mm'>ระดับ</th><td>ผิวหลังคาที่ชายคา +7.00 m · ยอดโค้ง +9.00 m · ใต้คอร์ดล่างที่แนวเสา +6.00 m</td></tr>
+<tr><th style='width:38mm'>รูปทรงหลังคา</th><td>ส่วนโค้งวงกลมรัศมี 21.25 m (สูงโค้ง 2.00 m)</td></tr>
+<tr><th style='width:38mm'>โครงหลังคา</th><td>โครงถักโค้งคอร์ดขนาน ลึก 0.90 m ตามแนวรัศมี · 18 ช่อง · ตั้ง + ทแยงสลับ</td></tr>
+<tr><th style='width:38mm'>ระยะโครง</th><td>4.50 m · 7 โครง · เสา 14 ต้น</td></tr>
+<tr><th style='width:38mm'>ลักษณะการใช้งาน</th><td>สนามกีฬาในโรงเรียน · เปิดโล่งรอบด้าน · พื้นวางบนดิน (ไม่อยู่ในขอบเขต)</td></tr>
+<tr><th style='width:38mm'>การต่อ</th><td>คอร์ดบนและคอร์ดล่างยึดแน่นกับเสา (โครงข้อแข็ง) · โคนเสายึดแน่นกับตอม่อ คสล.</td></tr>
+</table><h2>1.2 มาตรฐานและกฎหมาย</h2><table>
+<tr><th style='width:52mm'>น้ำหนักบรรทุกและชุดน้ำหนัก</th><td>กฎกระทรวงกำหนดการรับน้ำหนัก ความต้านทาน ความคงทนของอาคาร พ.ศ. 2566 (ข้อ 6 ASD, ข้อ 11 นจ.)</td></tr>
+<tr><th style='width:52mm'>แรงลม</th><td>มยผ. 1311 (ความเร็วลมอ้างอิงกลุ่ม 1) — ค่าสัมประสิทธิ์ตามบทที่ 12</td></tr>
+<tr><th style='width:52mm'>แผ่นดินไหว</th><td>กฎกระทรวงแผ่นดินไหว พ.ศ. 2564 — อุทัยธานีอยู่บริเวณที่ 2</td></tr>
+<tr><th style='width:52mm'>ระยะแอ่นตัว / ความชะลูด</th><td>ประกาศกระทรวงมหาดไทย 2567 ข้อ 8 ตาราง 1 และข้อ 27</td></tr>
+<tr><th style='width:52mm'>กำลังเหล็กรูปพรรณ</th><td>AISC 360-16 วิธีกำลังที่ยอมให้ (ASD, Ω = 1.67)</td></tr>
+</table><h2>1.3 วัสดุ</h2><table>
+<tr><th style='width:52mm'>เหล็กรูปพรรณ / เหล็กกล่อง</th><td>SS400 (มอก. 1227) / STKR400 (มอก. 107) · F<sub>y</sub> = 2,500 ksc · F<sub>u</sub> = 4,080 ksc · E = 2,040,000 ksc</td></tr>
+<tr><th>แป</th><td>เหล็กขึ้นรูปเย็นรูปตัวซี F<sub>y</sub> = 2,500 ksc (ตรวจแบบง่าย — ดูบทที่ 12)</td></tr>
+<tr><th>เหล็กค้ำยัน</th><td>เหล็กเส้นกลม SR24 F<sub>y</sub> = 2,400 ksc พร้อมเกลียวเร่ง</td></tr></table></section>
+<section class='chapter'><h1>2. น้ำหนักบรรทุก</h1>
+<p>คิดสำหรับโครงภายใน 1 โครง ความกว้างรับน้ำหนัก 4.50 m (โครงริมรับครึ่งหนึ่ง) · ความยาวโค้งหลังคา 18.59 m</p>
+<h2>2.1 น้ำหนักบรรทุกคงที่และจร</h2><table><tr><th>รายการ</th><th>ค่า</th><th class='n'>ต่อโครง (kg)</th></tr>
+<tr><td>หลังคาเหล็กรีด 0.47 mm + ฉนวน (D)</td><td>10 kg/m² × 18.59 m × 4.50 m</td><td class='n'>836</td></tr>
+<tr><td>แป (D)</td><td>5.5 kg/m × 4.50 m × 19 แนว (เผื่อสูงกว่าแปที่เลือก)</td><td class='n'>470</td></tr>
+<tr><td>น้ำหนักโครงถักและเสา (D)</td><td>คำนวณจากหน้าตัด × 7,850 kg/m³ × 1.10 (แผ่นต่อ)</td><td class='n'>1,235</td></tr>
+<tr><td>ไฟสนามและสายไฟ (SD)</td><td>10 kg/m² × 18.00 m × 4.50 m (ไม่นับในกรณี 0.6D)</td><td class='n'>810</td></tr>
+<tr><td>น้ำหนักบรรทุกจรหลังคา (L)</td><td>50 kg/m² × 18.00 × 4.50 (กฎกระทรวง 2566 ข้อ 11)</td><td class='n'>4,050</td></tr>
+</table>
+<h2>2.2 แรงลม</h2><div class='calc'>
+<div><span class='k'>ความเร็วลมอ้างอิง</span><span>V̄ = V<sub>50</sub> × T<sub>F</sub> = 25 × 1.0 = 25 m/s (กลุ่ม 1 · อุทัยธานี)</span></div>
+<div><span class='k'>หน่วยแรงลมอ้างอิง</span><span>q = ½ρV̄² = ½ × 1.25 × 25² = 390.6 N/m² = <b>39.8 kg/m²</b></span></div>
+<div><span class='k'>ตัวคูณความสำคัญ</span><span>I<sub>W</sub> = 1.15 (ประเภทความสำคัญ "มาก" — โรงเรียน)</span></div>
+<div><span class='k'>ตัวคูณสภาพภูมิประเทศ</span><span>C<sub>e</sub> = (z/10)<sup>0.2</sup> = (9/10)<sup>0.2</sup> = 0.98 → ใช้ 1.0</span></div>
+<div><span class='k'>หน่วยแรงลมออกแบบ</span><span>q<sub>W</sub> = 39.8 × 1.15 × 1.0 = <b>45.8 kg/m²</b></span></div>
+</div><table><tr><th>กรณี</th><th>C<sub>p</sub>C<sub>g</sub> สุทธิ (สมมติ ⚠)</th><th class='n'>แรงดิ่งรวม/โครง (kg)</th><th class='n'>แรงราบรวม/โครง (kg)</th></tr>
+<tr><td>W1 ลมยกทั้งหลังคา</td><td>-1.3</td><td class='n'>+4,822</td><td class='n'>+0</td></tr>
+<tr><td>W2 ลมจากซ้าย (ไม่สมมาตร)</td><td>ต้นลม -1.6 / ท้ายลม -0.6</td><td class='n'>+3,974</td><td class='n'>-412</td></tr>
+<tr><td>W2R ลมจากขวา</td><td>ต้นลม -1.6 / ท้ายลม -0.6</td><td class='n'>+4,187</td><td class='n'>+412</td></tr>
+<tr><td>W4 ลมกดลง</td><td>+0.8</td><td class='n'>-2,967</td><td class='n'>-0</td></tr>
+</table><p class='small'>แรงลมกระทำตั้งฉากกับผิวโค้งที่จุดต่อคอร์ดบนแต่ละจุดตามพื้นที่รับ · กรณี W1, W2, W2R รวมแรงลากบนเสา C<sub>f</sub>C<sub>g</sub> = 2.0 × ความลึกหน้าตัดเสา · ค่าบวก = กดลง/ไปทางขวา</p>
+<h2>2.3 แรงแผ่นดินไหว</h2><div class='calc'>
+<div><span class='k'>น้ำหนักประสิทธิผล</span><span>W = D + SD = 3,351 kg/โครง</span></div>
+<div><span class='k'>สัมประสิทธิ์</span><span>C<sub>s</sub> = S<sub>DS</sub>·I<sub>e</sub>/R = 0.5 × 1.25 / 3.0 = 0.208 (S<sub>DS</sub> สมมติ ⚠)</span></div>
+<div><span class='k'>แรงเฉือนที่ฐาน</span><span>V = C<sub>s</sub>W = <b>698 kg/โครง</b> กระทำที่หัวเสาสองข้างเท่ากัน</span></div>
+</div></section>
+<section class='chapter'><h1>3. แบบจำลองโครงสร้าง</h1>
+<p>วิเคราะห์โครงภายในเป็นโครงข้อแข็ง 2 มิติด้วยวิธีไฟไนต์เอลิเมนต์ (direct stiffness) · 50 จุดต่อ · 85 ชิ้นส่วน · เสาและคอร์ดเป็น frame element (รับแรงตามแกนและโมเมนต์) · ตั้งและทแยงเป็น truss element (หมุดสองปลาย) · น้ำหนักกระทำที่จุดต่อ (แปวางทุกจุดต่อคอร์ดบน) · แรงแผ่บนเสาใช้แรงยึดปลาย (fixed-end forces)</p>
+<figure><img src='1_elevation_sections.png'><figcaption>รูปที่ 1 รูปด้านโครงภายในและหน้าตัดที่เลือก</figcaption></figure>
+<h2>3.1 ความยาวไร้ค้ำยันที่ใช้ตรวจ</h2><table><tr><th>กลุ่ม</th><th>ในระนาบโครง</th><th>นอกระนาบโครง</th><th>เหตุผล</th></tr>
+<tr><td>คอร์ดบน</td><td>ระยะจุดต่อ ≈ 1.03 m</td><td>ระยะจุดต่อ ≈ 1.03 m</td><td>แปยึดทุกจุดต่อ</td></tr>
+<tr><td>คอร์ดล่าง</td><td>ระยะจุดต่อ ≈ 0.99 m</td><td>3 ช่อง ≈ 3.0 m</td><td>ค้ำยันด้านข้าง (fly brace) ทุก 3 จุดต่อ</td></tr>
+<tr><td>ตั้ง/ทแยง</td><td>ความยาวชิ้นส่วน</td><td>ความยาวชิ้นส่วน</td><td>K = 1.0</td></tr>
+<tr><td>เสา</td><td>K = 1.2 × 6.00 m</td><td>K = 1.0 × 7.00 m · L<sub>b</sub> = 7.00 m</td><td>โครงเซได้ · หัวเสายึดด้วยคานยึดหัวเสา + X-bracing</td></tr>
+</table></section>
+<section><h1 style='margin-top:6mm'>4. ชุดน้ำหนักบรรทุก (กฎกระทรวง 2566 ข้อ 6 — ASD)</h1><table><tr><th>ชุด</th><th>ส่วนประกอบ</th></tr>
+<tr><td>D+L</td><td>1·D + 1·SD + 1·L</td></tr>
+<tr><td>D+0.75(L+W↓)</td><td>1·D + 1·SD + 0.75·L + 0.75·W4</td></tr>
+<tr><td>D+0.75(L+W2)</td><td>1·D + 1·SD + 0.75·L + 0.75·W2</td></tr>
+<tr><td>D+0.75(L+W2R)</td><td>1·D + 1·SD + 0.75·L + 0.75·W2R</td></tr>
+<tr><td>0.6D+W1</td><td>0.6·D + 1·W1</td></tr>
+<tr><td>0.6D+W2</td><td>0.6·D + 1·W2</td></tr>
+<tr><td>0.6D+W2R</td><td>0.6·D + 1·W2R</td></tr>
+<tr><td>D+0.7E</td><td>1·D + 1·SD + 0.7·E</td></tr>
+<tr><td>D-0.7E</td><td>1·D + 1·SD + -0.7·E</td></tr>
+<tr><td>0.6D+0.7E</td><td>0.6·D + 0.7·E</td></tr>
+<tr><td>0.6D-0.7E</td><td>0.6·D + -0.7·E</td></tr>
+</table><p class='small'>D = น้ำหนักคงที่ · SD = ไฟและสายไฟ · L = นจ.หลังคา · W = แรงลม · E = แผ่นดินไหว · กรณีตรวจการถอน (0.6D) ไม่นับน้ำหนักไฟเพื่อความปลอดภัย</p></section>
+<section class='chapter'><h1>5. ผลการวิเคราะห์</h1>
+<figure><img src='2_axial_forces.png'><figcaption>รูปที่ 2 แรงในชิ้นส่วน — กรณีกดลงที่ควบคุม (บน) และลมยกไม่สมมาตร (ล่าง) · น้ำเงิน = ดึง · แดง = อัด</figcaption></figure></section>
+<section class='chapter'><figure><img src='3_deflection.png'><figcaption>รูปที่ 3 รูปการเสียรูป (ขยายสเกล) — นค. + นจ. (ซ้าย) และลมยก (ขวา)</figcaption></figure></section>
+<section class='chapter'><h1>6. การตรวจสอบหน้าตัด (AISC 360-16 ASD)</h1><h2>6.1 สรุป</h2>
+<table><tr><th>ชิ้นส่วน</th><th>หน้าตัด</th><th class='n'>kg/m</th><th class='n'>DCR</th><th>ชิ้นที่ควบคุม</th><th>ชุดน้ำหนัก</th><th>ผล</th></tr>
+<tr><td>คอร์ดบน</td><td><b>□75×75×3.2</b></td><td class='n'>7.0</td><td class='n'>0.99</td><td>TC9</td><td>D+0.75(L+W↓)</td><td class='ok'>ผ่าน</td></tr>
+<tr><td>คอร์ดล่าง</td><td><b>□100×100×3.2</b></td><td class='n'>9.5</td><td class='n'>0.91</td><td>BC18</td><td>D+0.75(L+W↓)</td><td class='ok'>ผ่าน</td></tr>
+<tr><td>ตั้ง/ทแยง</td><td><b>□50×50×2.3</b></td><td class='n'>3.3</td><td class='n'>0.80</td><td>D17</td><td>D+0.75(L+W↓)</td><td class='ok'>ผ่าน</td></tr>
+<tr><td>เสา</td><td><b>H-200×200×8×12</b></td><td class='n'>48.7</td><td class='n'>0.81</td><td>COLR:cR5-b18</td><td>D+0.75(L+W↓)</td><td class='ok'>ผ่าน</td></tr>
+</table><p class='small'>หน้าตัดเลือกอัตโนมัติจากรายการเหล็กที่มีในตลาด เป็นตัวที่เบาที่สุดที่ผ่านทุกชุดน้ำหนักและเกณฑ์ระยะแอ่นตัว · DCR = แรงที่เกิด ÷ กำลังที่ยอมให้</p>
+<div class='note'><b>ข้อแนะนำ:</b> คอร์ดบน DCR 0.99 ใกล้ขีดจำกัดมาก และควบคุมโดยกรณีลมกดลงซึ่งใช้ค่าสัมประสิทธิ์สมมติ แนะนำให้ใช้ □100×100×3.2 เท่ากับคอร์ดล่างเพื่อเพิ่มระยะเผื่อและให้ทำรายละเอียดจุดต่อได้ง่าย</div>
+<h2>6.2 คอร์ดบน — ชิ้น TC9</h2><div class='calc'>
+<div><span class='k'>หน้าตัด</span><span>□75×75×3.2 · A = 8.93 cm² · I<sub>x</sub> = 77 cm⁴ · r<sub>x</sub> = 2.93 cm · r<sub>y</sub> = 2.93 cm · Z<sub>x</sub> = 24.1 cm³</span></div>
+<div><span class='k'>ความยาว / ไร้ค้ำยัน</span><span>L = 103.3 cm · K<sub>x</sub>L<sub>x</sub> = 103 cm · K<sub>y</sub>L<sub>y</sub> = 103 cm · L<sub>b</sub> = 103 cm</span></div>
+<div><span class='k'>ความชะลูด</span><span>KL/r = 35.2 ≤ 200 (ประกาศ มท. 2567 ข้อ 27)</span></div>
+<div><span class='k'>แรงอัดวิกฤต (AISC E3)</span><span>F<sub>e</sub> = π²E/(KL/r)² = 16,260 ksc · F<sub>y</sub>/F<sub>e</sub> = 0.15 → F<sub>cr</sub> = 2,344 ksc</span></div>
+<div><span class='k'>กำลังที่ยอมให้</span><span>P<sub>a</sub> = F<sub>cr</sub>A/1.67 = 12.53 t (อัด) · T<sub>a</sub> = F<sub>y</sub>A/1.67 = 13.36 t (ดึง) · M<sub>a</sub> = M<sub>n</sub>/1.67 = 0.360 t·m</span></div>
+<div><span class='k'>แรงที่เกิด</span><span>ชุด D+0.75(L+W↓) · N = -11.52 t (อัด) · M = 0.028 t·m</span></div>
+<div><span class='k'>แรงร่วม (AISC H1)</span><span>H1-1a: P/P<sub>c</sub> + 8/9·M/M<sub>c</sub> = 0.919 + 8/9 × 0.078 = <b>0.99</b> ≤ 1.00</span></div>
+</div>
+<h2>6.3 คอร์ดล่าง — ชิ้น BC18</h2><div class='calc'>
+<div><span class='k'>หน้าตัด</span><span>□100×100×3.2 · A = 12.13 cm² · I<sub>x</sub> = 190 cm⁴ · r<sub>x</sub> = 3.95 cm · r<sub>y</sub> = 3.95 cm · Z<sub>x</sub> = 44.0 cm³</span></div>
+<div><span class='k'>ความยาว / ไร้ค้ำยัน</span><span>L = 141.1 cm · K<sub>x</sub>L<sub>x</sub> = 141 cm · K<sub>y</sub>L<sub>y</sub> = 423 cm · L<sub>b</sub> = 423 cm</span></div>
+<div><span class='k'>ความชะลูด</span><span>KL/r = 107.1 ≤ 200 (ประกาศ มท. 2567 ข้อ 27)</span></div>
+<div><span class='k'>แรงอัดวิกฤต (AISC E3)</span><span>F<sub>e</sub> = π²E/(KL/r)² = 1,756 ksc · F<sub>y</sub>/F<sub>e</sub> = 1.42 → F<sub>cr</sub> = 1,378 ksc</span></div>
+<div><span class='k'>กำลังที่ยอมให้</span><span>P<sub>a</sub> = F<sub>cr</sub>A/1.67 = 10.00 t (อัด) · T<sub>a</sub> = F<sub>y</sub>A/1.67 = 18.15 t (ดึง) · M<sub>a</sub> = M<sub>n</sub>/1.67 = 0.659 t·m</span></div>
+<div><span class='k'>แรงที่เกิด</span><span>ชุด D+0.75(L+W↓) · N = -6.13 t (อัด) · M = 0.221 t·m</span></div>
+<div><span class='k'>แรงร่วม (AISC H1)</span><span>H1-1a: P/P<sub>c</sub> + 8/9·M/M<sub>c</sub> = 0.613 + 8/9 × 0.335 = <b>0.91</b> ≤ 1.00</span></div>
+</div>
+<h2>6.4 ตั้ง/ทแยง — ชิ้น D17</h2><div class='calc'>
+<div><span class='k'>หน้าตัด</span><span>□50×50×2.3 · A = 4.25 cm² · I<sub>x</sub> = 16 cm⁴ · r<sub>x</sub> = 1.95 cm · r<sub>y</sub> = 1.95 cm · Z<sub>x</sub> = 7.6 cm³</span></div>
+<div><span class='k'>ความยาว / ไร้ค้ำยัน</span><span>L = 135.3 cm · K<sub>x</sub>L<sub>x</sub> = 135 cm · K<sub>y</sub>L<sub>y</sub> = 135 cm</span></div>
+<div><span class='k'>ความชะลูด</span><span>KL/r = 69.4 ≤ 200 (ประกาศ มท. 2567 ข้อ 27)</span></div>
+<div><span class='k'>แรงอัดวิกฤต (AISC E3)</span><span>F<sub>e</sub> = π²E/(KL/r)² = 4,180 ksc · F<sub>y</sub>/F<sub>e</sub> = 0.60 → F<sub>cr</sub> = 1,946 ksc</span></div>
+<div><span class='k'>กำลังที่ยอมให้</span><span>P<sub>a</sub> = F<sub>cr</sub>A/1.67 = 4.96 t (อัด) · T<sub>a</sub> = F<sub>y</sub>A/1.67 = 6.37 t (ดึง)</span></div>
+<div><span class='k'>แรงที่เกิด</span><span>ชุด D+0.75(L+W↓) · N = -3.98 t (อัด)</span></div>
+<div><span class='k'>อัตราส่วน</span><span>|N|/P<sub>a</sub> = <b>0.80</b> ≤ 1.00</span></div>
+</div>
+<h2>6.5 เสา — ชิ้น COLR:cR5-b18</h2><div class='calc'>
+<div><span class='k'>หน้าตัด</span><span>H-200×200×8×12 · A = 62.08 cm² · I<sub>x</sub> = 4,610 cm⁴ · r<sub>x</sub> = 8.62 cm · r<sub>y</sub> = 5.08 cm · Z<sub>x</sub> = 513.2 cm³</span></div>
+<div><span class='k'>ความยาว / ไร้ค้ำยัน</span><span>L = 100.2 cm · K<sub>x</sub>L<sub>x</sub> = 720 cm · K<sub>y</sub>L<sub>y</sub> = 700 cm · L<sub>b</sub> = 700 cm</span></div>
+<div><span class='k'>ความชะลูด</span><span>KL/r = 137.9 ≤ 200 (ประกาศ มท. 2567 ข้อ 27)</span></div>
+<div><span class='k'>แรงอัดวิกฤต (AISC E3)</span><span>F<sub>e</sub> = π²E/(KL/r)² = 1,060 ksc · F<sub>y</sub>/F<sub>e</sub> = 2.36 → F<sub>cr</sub> = 929 ksc</span></div>
+<div><span class='k'>การโก่งเดาะด้านข้าง (AISC F2)</span><span>L<sub>p</sub> = 255 cm · L<sub>r</sub> = 1,070 cm · L<sub>b</sub> = 700 cm · C<sub>b</sub> = 1.0 (ปลอดภัย)</span></div>
+<div><span class='k'>กำลังที่ยอมให้</span><span>P<sub>a</sub> = F<sub>cr</sub>A/1.67 = 34.54 t (อัด) · T<sub>a</sub> = F<sub>y</sub>A/1.67 = 92.93 t (ดึง) · M<sub>a</sub> = M<sub>n</sub>/1.67 = 6.126 t·m</span></div>
+<div><span class='k'>ตัวขยาย P-Δ (AISC App. 8)</span><span>B<sub>2</sub> = 1.037 (α = 1.6) คูณกับโมเมนต์เสาทั้งหมด</span></div>
+<div><span class='k'>แรงที่เกิด</span><span>ชุด D+0.75(L+W↓) · N = -4.01 t (อัด) · M = 4.633 t·m</span></div>
+<div><span class='k'>แรงร่วม (AISC H1)</span><span>H1-1b: P/2P<sub>c</sub> + M/M<sub>c</sub> = 0.116 / 2 + 0.756 = <b>0.81</b> ≤ 1.00</span></div>
+</div>
+</section>
+<section class='chapter'><h1>7. ระยะแอ่นตัว (ประกาศ มท. 2567 ตาราง 1 — หลังคาไม่รับฝ้า)</h1>
+<table><tr><th>รายการ</th><th class='n'>ค่าที่ได้ (cm)</th><th class='n'>เกณฑ์ (cm)</th><th>ผล</th></tr>
+<tr><td>นจ. ≤ L/180</td><td class='n'>2.13</td><td class='n'>10.00</td><td class='ok'>ผ่าน</td></tr>
+<tr><td>นค.+นจ. ≤ L/120</td><td class='n'>3.48</td><td class='n'>15.00</td><td class='ok'>ผ่าน</td></tr>
+<tr><td>ลมยก ≤ L/180</td><td class='n'>2.48</td><td class='n'>10.00</td><td class='ok'>ผ่าน</td></tr>
+<tr><td>หัวเสาเอียงจากลม ≤ H/150</td><td class='n'>0.96</td><td class='n'>4.67</td><td class='ok'>ผ่าน</td></tr>
+<tr><td>หัวเสาเอียงจากแผ่นดินไหว (Cd·δ/Ie ≤ 0.02H)</td><td class='n'>2.32</td><td class='n'>14.00</td><td class='ok'>ผ่าน</td></tr>
+<tr><td>แป: นจ. ≤ L/180</td><td class='n'>1.61</td><td class='n'>2.50</td><td class='ok'>ผ่าน</td></tr>
+</table><p class='small'>เกณฑ์เสาเอียงจากลม H/150 เป็นค่าที่ผู้ออกแบบเลือก (กฎหมายไม่ได้กำหนดสำหรับโครงหลังคาเปิดโล่ง) · เสาเอียงจากแผ่นดินไหวใช้ C<sub>d</sub> = 3</p>
+<h1 style='margin-top:8mm'>8. แป โครงค้ำยัน และคานยึดหัวเสา</h1><h2>8.1 แป (ช่วงเดี่ยว 4.50 m · sag rod ที่จุดแบ่ง 3 ช่วง)</h2>
+<p>เลือก <b>C100×50×20×2.3</b> (4.17 kg/m · S<sub>x</sub> = 16.8 cm³) · หน่วยแรงดัดที่ยอมให้ 0.6F<sub>y</sub> = 1,500 ksc (จำกัดอัตราส่วนไม่เกิน 0.75 เพื่อเผื่อการโก่งเฉพาะที่ของเหล็กขึ้นรูปเย็น)</p>
+<table><tr><th>กรณี</th><th class='n'>w (kg/m)</th><th class='n'>M (kg·m)</th><th class='n'>f<sub>b</sub> (ksc)</th><th class='n'>อัตราส่วน</th></tr>
+<tr><td>D+L</td><td class='n'>+66.1</td><td class='n'>167</td><td class='n'>996</td><td class='n'>0.66</td></tr>
+<tr><td>0.6D+W (ยก)</td><td class='n'>-67.0</td><td class='n'>170</td><td class='n'>1,009</td><td class='n'>0.67</td></tr>
+</table><h2>8.2 แรงแนวยาวและ X-bracing</h2><div class='calc'>
+<div><span class='k'>แรงลมแนวยาว</span><span>แรงลากบนโครงถัก/เสา + แรงเสียดทานผิวหลังคา ≈ 3.36 t</span></div>
+<div><span class='k'>แผ่นดินไหวแนวยาว</span><span>0.7 × C<sub>s</sub> × W × 6 โครง ≈ 2.93 t</span></div>
+<div><span class='k'>แรงออกแบบ</span><span>H = 3.36 t รับด้วย X-bracing 4 ช่อง (ช่วงริม 2 ช่วง × แนวเสา 2 แนว)</span></div>
+<div><span class='k'>แรงในเหล็กค้ำ</span><span>T = H/4 × L<sub>d</sub>/4.50 = 1.40 t (L<sub>d</sub> = 7.50 m)</span></div>
+<div><span class='k'>เลือก</span><span>เหล็กเส้นกลม <b>Ø12 mm</b> (ตรวจครากที่หน้าตัดเต็ม และขาดที่เกลียว 75 %) · แนะนำ Ø16 mm เพื่อความแข็งตอนติดตั้ง</span></div>
+<div><span class='k'>คานยึดหัวเสา</span><span>□75×75×3.2 ยาว 4.50 m · KL/r = 153 ≤ 200 · แรงอัด 1.68 t ≤ P<sub>a</sub> 4.01 t</span></div>
+</div></section>
+<section class='chapter'><h1>9. แรงที่ฐานเสาสำหรับออกแบบฐานราก</h1>
+<p>ต่อเสา 1 ต้นของโครงภายใน · ชุดน้ำหนัก ASD (ไม่คูณตัวคูณเพิ่ม) · V + = กดลงฐาน · H + = ไปทาง +x (ซ้ายไปขวา) · M เป็นโมเมนต์ในระนาบโครงที่โคนเสา (โคนเสายึดแน่น)</p>
+<table><tr><th>เสา</th><th>กรณี</th><th>ชุดน้ำหนัก</th><th class='n'>V (t)</th><th class='n'>H (t)</th><th class='n'>M (t·m)</th></tr>
+<tr><td>ซ้าย</td><td>แรงกดสูงสุด</td><td>D+0.75(L+W↓)</td><td class='n'>+4.31</td><td class='n'>+1.29</td><td class='n'>-3.28</td></tr>
+<tr><td>ซ้าย</td><td>แรงถอนสูงสุด</td><td>0.6D+W1</td><td class='n'>-1.67</td><td class='n'>-0.74</td><td class='n'>+1.84</td></tr>
+<tr><td>ขวา</td><td>แรงกดสูงสุด</td><td>D+0.75(L+W↓)</td><td class='n'>+4.31</td><td class='n'>-1.29</td><td class='n'>+3.28</td></tr>
+<tr><td>ขวา</td><td>แรงถอนสูงสุด</td><td>0.6D+W2R</td><td class='n'>-1.71</td><td class='n'>+0.44</td><td class='n'>-0.85</td></tr>
+</table><div class='note'>ฐานรากต้องมีน้ำหนักพอต้าน <b>แรงถอน 1.71 t ต่อเสา</b> พร้อมโมเมนต์ที่เกิดร่วมกัน · เสาในช่วงที่มี X-bracing รับแรงดิ่งเพิ่ม ±1.12 t · โครงริม (แกนหัว–ท้าย) รับน้ำหนักหลังคาครึ่งหนึ่งของโครงภายใน</div>
+<h1 style='margin-top:8mm'>10. ปริมาณเหล็กโดยประมาณ</h1><table><tr><th>รายการ</th><th class='n'>น้ำหนัก (kg)</th></tr>
+<tr><td>โครงถัก 7 โครง</td><td class='n'>3,081</td></tr>
+<tr><td>เสา 14 ต้น</td><td class='n'>4,776</td></tr>
+<tr><td>แป 19 แนว</td><td class='n'>2,138</td></tr>
+<tr><td>X-bracing + sag rod</td><td class='n'>165</td></tr>
+<tr><td>คานยึดหัวเสา 2 แนว</td><td class='n'>378</td></tr>
+<tr><th>รวม (+10 % แผ่นต่อ รอยเชื่อม สลักเกลียว)</th><th class='n'>11,591</th></tr></table><p>เฉลี่ย ≈ <b>23.8 kg/m²</b> ของพื้นที่หลังคา 486 m² · ยังไม่รวมแผ่นหลังคา ฉนวน และงานฐานราก</p></section>
+<section class='chapter'><h1>11. การตรวจสอบความถูกต้องของการคำนวณ</h1><table><tr><th>การตรวจ</th><th>ผล</th></tr>
+<tr><th style='width:48mm'>สมดุลแรงทุกกรณีน้ำหนัก</th><td>ผลรวมแรงปฏิกิริยา = ผลรวมน้ำหนัก ต่างกันน้อยกว่า 10⁻⁹ kg ทุกกรณี</td></tr>
+<tr><th style='width:48mm'>ตรวจมือ — นจ.</th><td>50 × 18 × 4.5 = 4,050 kg/โครง ตรงกับแบบจำลอง (4,050 kg)</td></tr>
+<tr><th style='width:48mm'>ตรวจมือ — ลมยก</th><td>59.5 kg/m² × 81 m² = 4,824 kg/โครง ตรงกับแบบจำลอง (4,822 kg)</td></tr>
+<tr><th style='width:48mm'>ตรวจไขว้กับโปรแกรมอื่น</th><td>สร้างแบบจำลองเดียวกันใน PyNite (ไลบรารี FEM โอเพนซอร์ส) — การเคลื่อนตัว แรงปฏิกิริยา แรงตามแกน และโมเมนต์ตรงกันทุกกรณี (ต่างกันน้อยกว่า 10⁻⁹)</td></tr>
+<tr><th style='width:48mm'>รูปการเสียรูป</th><td>นค.+นจ.: ยอดยุบ หัวเสาถ่างออก · ลมยก: ยอดยก หัวเสาหุบเข้า — สอดคล้องกับพฤติกรรมของโครงโค้ง</td></tr>
+</table>
+<h1 style='margin-top:8mm'>12. สมมติฐานและข้อจำกัด</h1><table><tr><th style='width:8mm'>#</th><th>รายการ</th></tr>
+<tr><td>1</td><td>⚠ <b>ค่าสัมประสิทธิ์แรงลมหลังคาเปิดโล่ง</b> เป็นค่าสมมติแบบเผื่อสูง (ไม่สามารถเข้าถึงตาราง มยผ. 1311 ขณะจัดทำ): ยก -1.3 · ไม่สมมาตร -1.6/-0.6 · กดลง +0.8 — <b>กรณีลมกดลงควบคุมคอร์ดบนและเสา</b> ต้องยืนยันเป็นอันดับแรก</td></tr>
+<tr><td>2</td><td>⚠ <b>แผ่นดินไหว</b> ใช้ S<sub>DS</sub> = 0.5 สมมติ (ไม่มีค่า S<sub>S</sub>, S<sub>1</sub> รายอำเภอ) · ผลไม่ควบคุมการออกแบบ แต่ต้องตรวจกับประกาศ มท. รายอำเภอและชั้นดินจริง</td></tr>
+<tr><td>3</td><td>⚠ ประเภทความสำคัญ "มาก" (โรงเรียนจุ > 250 คน) — ถ้าเป็น "ปกติ" แรงลมลดลง 15 %</td></tr>
+<tr><td>4</td><td>ระดับใต้คอร์ดล่างที่แนวเสา +6.00 m — ถ้าต้องการ +7.00 m ต้องยกเสาและวิเคราะห์ใหม่</td></tr>
+<tr><td>5</td><td>คอร์ดล่างต้องมีค้ำยันด้านข้าง (fly brace) จากแปทุก 3 จุดต่อ</td></tr>
+<tr><td>6</td><td>ยังไม่ได้ออกแบบ: จุดต่อและรอยเชื่อม · แผ่นฐานเสาและสลักเกลียวยึด · ตอม่อและฐานราก · แปตามมาตรฐานเหล็กขึ้นรูปเย็น</td></tr>
+<tr><td>7</td><td>แรงลมเฉพาะที่ขอบหลังคาสำหรับยึดแผ่นหลังคาและแปต้องคำนวณแยก (สูงกว่าค่าที่ใช้กับโครงหลัก)</td></tr>
+<tr><td>8</td><td>คุณสมบัติหน้าตัดคำนวณจากขนาด · เหล็ก H ไม่รวมมุมโค้งโคนปีก (ค่าต่ำกว่าตารางผู้ผลิตเล็กน้อย = ปลอดภัย)</td></tr>
+<tr><td>9</td><td>วิเคราะห์แบบเชิงเส้นอันดับหนึ่ง + ตัวขยาย B<sub>2</sub> สำหรับเสา · ไม่ได้วิเคราะห์การโก่งเดาะทั้งโครง (global buckling) ของโครงโค้ง</td></tr>
+</table></section>
+<section class='chapter'><h1>ภาคผนวก ก — ซองแรงของชิ้นส่วนทุกชิ้น (โครงภายใน)</h1>
+<p class='small'>N + = ดึง · N − = อัด · |M| สูงสุดตามความยาวชิ้นส่วน · DCR และชุดน้ำหนักที่ควบคุมตามบทที่ 6 · ชื่อจุดต่อดูรูปที่ 1 (t = คอร์ดบน, b = คอร์ดล่าง นับจากซ้าย)</p>
+<table class='small'><thead><tr><th>ชิ้นส่วน</th><th>กลุ่ม</th><th>หน้าตัด</th><th class='n'>L (m)</th><th class='n'>N ดึงสูงสุด (t)</th><th class='n'>N อัดสูงสุด (t)</th><th class='n'>|M| (kg·m)</th><th class='n'>DCR</th><th>ชุดที่ควบคุม</th></tr></thead><tbody>
+<tr><td>COLL:cL0-cL1</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.68</td><td class='n'>-4.28</td><td class='n'>3,279</td><td class='n'>0.62</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>COLL:cL1-cL2</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.71</td><td class='n'>-4.23</td><td class='n'>1,989</td><td class='n'>0.40</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>COLL:cL2-cL3</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.75</td><td class='n'>-4.17</td><td class='n'>698</td><td class='n'>0.18</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>COLL:cL3-cL4</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.78</td><td class='n'>-4.12</td><td class='n'>1,883</td><td class='n'>0.38</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>COLL:cL4-cL5</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.81</td><td class='n'>-4.07</td><td class='n'>3,174</td><td class='n'>0.60</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>COLL:cL5-b0</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.84</td><td class='n'>-4.01</td><td class='n'>4,467</td><td class='n'>0.81</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>COLL:b0-t0</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.10</td><td class='n'>-1.24</td><td class='n'>4,246</td><td class='n'>0.74</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>COLR:cR0-cR1</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.73</td><td class='n'>-4.28</td><td class='n'>3,279</td><td class='n'>0.62</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>COLR:cR1-cR2</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.76</td><td class='n'>-4.23</td><td class='n'>1,989</td><td class='n'>0.40</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>COLR:cR2-cR3</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.79</td><td class='n'>-4.17</td><td class='n'>698</td><td class='n'>0.18</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>COLR:cR3-cR4</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.82</td><td class='n'>-4.12</td><td class='n'>1,883</td><td class='n'>0.38</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>COLR:cR4-cR5</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.86</td><td class='n'>-4.07</td><td class='n'>3,174</td><td class='n'>0.60</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>COLR:cR5-b18</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.89</td><td class='n'>-4.01</td><td class='n'>4,467</td><td class='n'>0.81</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>COLR:b18-t18</td><td>เสา</td><td>H-200×200×8×12</td><td class='n'>1.00</td><td class='n'>1.09</td><td class='n'>-1.24</td><td class='n'>4,246</td><td class='n'>0.74</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC1</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>1.04</td><td class='n'>-1.17</td><td class='n'>28</td><td class='n'>0.10</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC1</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>1.41</td><td class='n'>3.07</td><td class='n'>-6.13</td><td class='n'>221</td><td class='n'>0.91</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC2</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>1.11</td><td class='n'>-1.15</td><td class='n'>9</td><td class='n'>0.06</td><td>0.6D+W2</td></tr>
+<tr><td>BC2</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>1.42</td><td class='n'>-1.32</td><td class='n'>43</td><td class='n'>0.08</td><td>0.6D+W2</td></tr>
+<tr><td>TC3</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>3.28</td><td class='n'>-4.65</td><td class='n'>15</td><td class='n'>0.41</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC3</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>1.43</td><td class='n'>-1.32</td><td class='n'>34</td><td class='n'>0.08</td><td>0.6D+W2</td></tr>
+<tr><td>TC4</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>3.29</td><td class='n'>-4.57</td><td class='n'>15</td><td class='n'>0.40</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC4</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>4.77</td><td class='n'>-3.23</td><td class='n'>34</td><td class='n'>0.31</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC5</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>4.61</td><td class='n'>-8.43</td><td class='n'>22</td><td class='n'>0.73</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC5</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>4.79</td><td class='n'>-3.23</td><td class='n'>50</td><td class='n'>0.33</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC6</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>4.62</td><td class='n'>-8.38</td><td class='n'>22</td><td class='n'>0.72</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC6</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>8.11</td><td class='n'>-4.04</td><td class='n'>50</td><td class='n'>0.51</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC7</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>5.16</td><td class='n'>-10.75</td><td class='n'>27</td><td class='n'>0.92</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC7</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>8.12</td><td class='n'>-4.04</td><td class='n'>60</td><td class='n'>0.53</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC8</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>5.17</td><td class='n'>-10.72</td><td class='n'>27</td><td class='n'>0.92</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC8</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>9.81</td><td class='n'>-4.34</td><td class='n'>60</td><td class='n'>0.62</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC9</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>5.56</td><td class='n'>-11.52</td><td class='n'>28</td><td class='n'>0.99</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC9</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>9.82</td><td class='n'>-4.34</td><td class='n'>64</td><td class='n'>0.63</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC10</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>5.56</td><td class='n'>-11.52</td><td class='n'>28</td><td class='n'>0.99</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC10</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>9.82</td><td class='n'>-4.38</td><td class='n'>64</td><td class='n'>0.63</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC11</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>5.39</td><td class='n'>-10.72</td><td class='n'>27</td><td class='n'>0.92</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC11</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>9.81</td><td class='n'>-4.38</td><td class='n'>60</td><td class='n'>0.62</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC12</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>5.39</td><td class='n'>-10.75</td><td class='n'>27</td><td class='n'>0.92</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC12</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>8.12</td><td class='n'>-4.37</td><td class='n'>60</td><td class='n'>0.53</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC13</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>4.91</td><td class='n'>-8.38</td><td class='n'>22</td><td class='n'>0.72</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC13</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>8.11</td><td class='n'>-4.37</td><td class='n'>50</td><td class='n'>0.51</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC14</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>4.90</td><td class='n'>-8.43</td><td class='n'>22</td><td class='n'>0.73</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC14</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>4.79</td><td class='n'>-3.34</td><td class='n'>50</td><td class='n'>0.33</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC15</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>3.39</td><td class='n'>-4.57</td><td class='n'>15</td><td class='n'>0.40</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC15</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>4.77</td><td class='n'>-3.34</td><td class='n'>34</td><td class='n'>0.31</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>TC16</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>3.37</td><td class='n'>-4.65</td><td class='n'>15</td><td class='n'>0.41</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC16</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>1.34</td><td class='n'>-1.24</td><td class='n'>34</td><td class='n'>0.08</td><td>0.6D+W2R</td></tr>
+<tr><td>TC17</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>1.07</td><td class='n'>-1.06</td><td class='n'>9</td><td class='n'>0.06</td><td>0.6D+W2R</td></tr>
+<tr><td>BC17</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>0.99</td><td class='n'>1.34</td><td class='n'>-1.24</td><td class='n'>43</td><td class='n'>0.08</td><td>0.6D+W2R</td></tr>
+<tr><td>TC18</td><td>คอร์ดบน</td><td>□75×75×3.2</td><td class='n'>1.03</td><td class='n'>1.04</td><td class='n'>-1.08</td><td class='n'>28</td><td class='n'>0.10</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>BC18</td><td>คอร์ดล่าง</td><td>□100×100×3.2</td><td class='n'>1.41</td><td class='n'>2.79</td><td class='n'>-6.13</td><td class='n'>221</td><td class='n'>0.91</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V1</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.23</td><td class='n'>-0.34</td><td class='n'>0</td><td class='n'>0.03</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V2</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.14</td><td class='n'>-0.09</td><td class='n'>0</td><td class='n'>0.01</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V3</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.12</td><td class='n'>-0.11</td><td class='n'>0</td><td class='n'>0.01</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V4</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.34</td><td class='n'>-0.18</td><td class='n'>0</td><td class='n'>0.03</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V5</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.09</td><td class='n'>-0.03</td><td class='n'>0</td><td class='n'>0.01</td><td>D+0.75(L+W2)</td></tr>
+<tr><td>V6</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.50</td><td class='n'>-0.22</td><td class='n'>0</td><td class='n'>0.04</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V7</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.17</td><td class='n'>-0.10</td><td class='n'>0</td><td class='n'>0.01</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V8</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.58</td><td class='n'>-0.24</td><td class='n'>0</td><td class='n'>0.05</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V9</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.21</td><td class='n'>-0.13</td><td class='n'>0</td><td class='n'>0.02</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V10</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.58</td><td class='n'>-0.24</td><td class='n'>0</td><td class='n'>0.05</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V11</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.17</td><td class='n'>-0.08</td><td class='n'>0</td><td class='n'>0.01</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V12</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.50</td><td class='n'>-0.23</td><td class='n'>0</td><td class='n'>0.04</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V13</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.08</td><td class='n'>-0.01</td><td class='n'>0</td><td class='n'>0.01</td><td>D-0.7E</td></tr>
+<tr><td>V14</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.34</td><td class='n'>-0.18</td><td class='n'>0</td><td class='n'>0.03</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V15</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.11</td><td class='n'>-0.11</td><td class='n'>0</td><td class='n'>0.01</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V16</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.14</td><td class='n'>-0.09</td><td class='n'>0</td><td class='n'>0.01</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>V17</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>0.90</td><td class='n'>0.22</td><td class='n'>-0.34</td><td class='n'>0</td><td class='n'>0.03</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D1</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>3.89</td><td class='n'>-1.99</td><td class='n'>0</td><td class='n'>0.61</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D2</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>1.90</td><td class='n'>-3.98</td><td class='n'>0</td><td class='n'>0.80</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D3</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>3.34</td><td class='n'>-1.55</td><td class='n'>0</td><td class='n'>0.53</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D4</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>1.39</td><td class='n'>-2.99</td><td class='n'>0</td><td class='n'>0.60</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D5</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>2.37</td><td class='n'>-1.08</td><td class='n'>0</td><td class='n'>0.37</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D6</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>1.03</td><td class='n'>-1.97</td><td class='n'>0</td><td class='n'>0.40</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D7</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>1.31</td><td class='n'>-0.94</td><td class='n'>0</td><td class='n'>0.21</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D8</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>0.98</td><td class='n'>-0.89</td><td class='n'>0</td><td class='n'>0.09</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D9</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>0.74</td><td class='n'>-0.87</td><td class='n'>0</td><td class='n'>0.09</td><td>0.6D+W2R</td></tr>
+<tr><td>D10</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>0.60</td><td class='n'>-0.73</td><td class='n'>0</td><td class='n'>0.07</td><td>0.6D+W2</td></tr>
+<tr><td>D11</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>0.82</td><td class='n'>-0.89</td><td class='n'>0</td><td class='n'>0.09</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D12</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>1.31</td><td class='n'>-0.80</td><td class='n'>0</td><td class='n'>0.21</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D13</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>0.88</td><td class='n'>-1.97</td><td class='n'>0</td><td class='n'>0.40</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D14</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>2.37</td><td class='n'>-1.03</td><td class='n'>0</td><td class='n'>0.37</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D15</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>1.34</td><td class='n'>-2.99</td><td class='n'>0</td><td class='n'>0.60</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D16</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>3.34</td><td class='n'>-1.52</td><td class='n'>0</td><td class='n'>0.53</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D17</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>1.97</td><td class='n'>-3.98</td><td class='n'>0</td><td class='n'>0.80</td><td>D+0.75(L+W↓)</td></tr>
+<tr><td>D18</td><td>ตั้ง/ทแยง</td><td>□50×50×2.3</td><td class='n'>1.35</td><td class='n'>3.89</td><td class='n'>-2.09</td><td class='n'>0</td><td class='n'>0.61</td><td>D+0.75(L+W↓)</td></tr>
+</tbody></table></section></body></html>
