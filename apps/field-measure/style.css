@@ -142,7 +142,7 @@ button.sign { flex: 0 0 var(--tap); min-height: var(--tap); font-size: 22px; fon
 .pt-head .cl { flex: 1; font-size: 20px; }
 .pt-body { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; align-items: end; }
 .pt-body .rl { grid-column: 1 / -1; font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
-.chip.mode { min-height: 32px; padding: 2px 10px; font-size: 14px; align-self: flex-start; }
+.chip.mode { min-height: 44px; padding: 4px 10px; font-size: 14px; align-self: stretch; }
 .feat { border-bottom: 1px solid #d4d8de; padding: 4px 0; }
 .check { width: 100%; text-align: left; min-height: var(--tap); font: inherit; font-weight: 700; background: none; border: 0; color: var(--fg); padding: 4px 0; }
 .check.on { color: var(--brand); }

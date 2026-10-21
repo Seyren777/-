@@ -52,13 +52,19 @@ function unlink(project, point) {
   delete point.readingId;
 }
 
-/** Staff reading for a section point: appends/updates an IS row in the level book; blank removes it. */
+/** Staff reading for a section point: appends/updates an IS row in the level book; blank empties it in place. */
 export function setPointReading(project, station, point, value) {
   const v = typeof value === 'number' ? value : parseNum(value);
   if (Number.isNaN(v)) return;
   delete point.rl;
-  if (v === null) { unlink(project, point); return; }
   const row = point.readingId ? project.levelBook.find((r) => r.id === point.readingId) : undefined;
+  if (v === null) {
+    // Keep the row (and its place in the reading order) so retyping restores the same RL;
+    // computeLevelBook skips a row with no readings. Only deletePoint / RL entry unlink.
+    if (row) row.is = null;
+    else delete point.readingId;
+    return;
+  }
   if (row) {
     row.is = v;
     row.point = point.label || '';

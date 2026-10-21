@@ -31,9 +31,9 @@ function precacheList() {
   return [...m[1].matchAll(/['"]([^'"]+)['"]/g)].map((x) => x[1]);
 }
 
-test('sw.js uses cache name fm-v1', () => {
+test('sw.js uses a versioned fm-v<n> cache name', () => {
   const sw = readFileSync(join(APP, 'sw.js'), 'utf8');
-  assert.match(sw, /['"]fm-v1['"]/);
+  assert.match(sw, /const\s+CACHE\s*=\s*['"]fm-v\d+['"]/);
 });
 
 test('every precached path is relative and exists on disk', () => {

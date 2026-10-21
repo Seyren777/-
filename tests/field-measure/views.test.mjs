@@ -59,8 +59,24 @@ test('entering a reading appends an IS row and links it; editing updates it', ()
   assert.equal(p.levelBook[1].is, 1.25);
 
   setPointReading(p, st, cl, '');
-  assert.equal(p.levelBook.length, 1);
-  assert.equal(cl.readingId, undefined);
+  assert.equal(p.levelBook.length, 2, 'clearing keeps the row in place');
+  assert.equal(p.levelBook[1].is, null);
+  assert.equal(cl.readingId, row.id);
+});
+
+test('clearing then retyping a reading keeps the IS row position and its RL', () => {
+  const p = roadProject();
+  const cl0 = p.stations[0].section[0];
+  setPointReading(p, p.stations[0], cl0, 1.3); // HI 101.5 -> RL 100.200
+  p.levelBook.push({ id: 'cp', point: 'TP1', fs: 1.0, bs: 2.0 }); // change point
+  setPointReading(p, p.stations[1], p.stations[1].section[0], 1.4);
+  const rl = () => rlOf(computeLevelBook(p.levelBook, p.bms), cl0.readingId);
+  assert.ok(Math.abs(rl() - 100.2) < 1e-9);
+  setPointReading(p, p.stations[0], cl0, null); // backspaced to empty
+  assert.equal(rl(), undefined);
+  setPointReading(p, p.stations[0], cl0, 1.3);
+  assert.ok(Math.abs(rl() - 100.2) < 1e-9);
+  assert.deepEqual(p.levelBook.map((r) => r.point), ['BM1', 'กึ่งกลาง', 'TP1', 'กึ่งกลาง']);
 });
 
 test('entering RL directly sets rl and removes the reading link', () => {
