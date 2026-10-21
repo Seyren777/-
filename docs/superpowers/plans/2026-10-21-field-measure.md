@@ -95,7 +95,7 @@ tests/field-measure/
 - Test: `tests/field-measure/road.test.mjs`
 
 **Interfaces:**
-- Produces: `formatSta(m: number): string` (`25 → '0+025'`, `1237.5 → '1+237.5'`); `parseSta(s: string): number`; `generateStations(start, length, interval): number[]` (includes end station); `insertStation(stations, sta)` (sorted, unique); `planLines(project): {cl:[[x,y]], edgeL, edgeR, shL, shR, rowL, rowR: [[x,y]][]}` where x = station metres, y = +offset right? **No:** y = −offset for left (left is +y in plan when travelling +x? Decide: plan drawn with chainage along +X and **left side at +Y**, so `y = −offset`), skipping stations with missing widths; `orderSection(points): points sorted by offset, duplicates by offset keep last`.
+- Produces: `formatSta(m: number): string` (`25 → '0+025'`, `1237.5 → '1+237.5'`); `parseSta(s: string): number`; `generateStations(start, length, interval): number[]` (includes end station); `insertStation(stations, sta)` (sorted, unique); `planLines(project): {cl:[[x,y]], edgeL, edgeR, shL, shR, rowL, rowR: [[x,y]][]}` where x = station metres and y = −offset (chainage runs along +X, **left side at +Y**; left offsets are negative so they map to +y), skipping stations with missing widths; `orderSection(points): points sorted by offset, duplicates by offset keep last`.
 
 - [ ] **Step 1: Write failing tests** with the values above; `generateStations(0, 110, 25)` → `[0,25,50,75,100,110]`; `planLines` with two stations `pavL 3, pavR 3.5` yields `edgeL = [[0,3],[25,3]]`, `edgeR = [[0,-3.5],[25,-3.5]]`; `orderSection([{offset:2},{offset:-2},{offset:2,rl:5}])` → offsets `[-2,2]` with second entry rl 5.
 - [ ] **Step 2: Run** → FAIL.
