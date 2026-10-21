@@ -1,0 +1,14 @@
+{
+  "name": "วัดหน้างาน",
+  "short_name": "วัดหน้างาน",
+  "description": "จดหน้างานถนน / ห้องน้ำ แล้วส่งออก DXF เข้า AutoCAD",
+  "lang": "th",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0b4f8a",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
