@@ -2,7 +2,7 @@
 // Paths are relative to this file so the app works under any sub-path (e.g. GitHub Pages /-/apps/field-measure/).
 // Bump CACHE when any listed file changes, otherwise phones keep the old copy.
 
-const CACHE = 'fm-v2';
+const CACHE = 'fm-v3';
 const PRECACHE = [
   './',
   './index.html',

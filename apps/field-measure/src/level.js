@@ -15,12 +15,16 @@ function num(v) {
 
 /**
  * rows: [{id, point, bs, is, fs, ...}], bms: [{name, rl}]
- * Returns {rows (with hi, rl), sumBS, sumFS, deltaRL, closure}.
- *  - First reading row starts the run: RL = BM rl if `point` names a BM, else 0 (closure then null).
+ * Returns {rows (with hi, rl), sumBS, sumFS, deltaRL, checkable, closure}.
+ *  - The first row WITH a BS starts the run: RL = BM rl if `point` names a BM, else 0 (closure then null).
+ *    Reading rows before it (IS/FS only) have no HI and no RL and are left out of the sums.
  *  - HI = RL + BS; RL = HI - IS or HI - FS. A row with FS and BS is a change point
  *    (RL from FS, then HI recomputed from its BS).
  *  - A later row naming a BM and having FS closes the run: closure = {expected, got, error}.
  *  - Rows with no bs/is/fs get hi/rl undefined and are left out of the sums.
+ *  - sumBS, sumFS and deltaRL cover only the rows up to and including the LAST row with an FS (the BS on that
+ *    row starts the next leg, so it is excluded); the identity sumBS - sumFS = deltaRL holds there.
+ *    checkable is false when no such FS row exists (the sums are then 0).
  */
 export function computeLevelBook(rows, bms) {
   const bmByName = new Map((bms || []).map((b) => [b.name, b.rl]));
@@ -31,8 +35,8 @@ export function computeLevelBook(rows, bms) {
   let sumBS = 0;
   let sumFS = 0;
   let firstRL = null;
-  let lastRL = null;
   let closure = null;
+  let checked = null; // {sumBS, sumFS, rl} snapshot at the last FS row after the run started
 
   for (const row of rows || []) {
     const bs = num(row.bs);
@@ -43,11 +47,14 @@ export function computeLevelBook(rows, bms) {
     if (bs === null && is === null && fs === null) continue;
 
     let rl;
+    let isStart = false;
     if (!started) {
+      if (bs === null) continue; // no HI yet: IS/FS before the first BS has no RL
       started = true;
+      isStart = true;
       startedAtBM = bmByName.has(row.point);
       rl = startedAtBM ? bmByName.get(row.point) : 0;
-      hi = bs !== null ? rl + bs : null;
+      hi = rl + bs;
     } else {
       const drop = fs !== null ? fs : is;
       if (drop !== null) {
@@ -69,14 +76,17 @@ export function computeLevelBook(rows, bms) {
     if (rl !== undefined) {
       copy.rl = rl;
       if (firstRL === null) firstRL = rl;
-      lastRL = rl;
     }
+    const sumBSBefore = sumBS;
     if (bs !== null) sumBS += bs;
     if (fs !== null) sumFS += fs;
+    if (fs !== null && rl !== undefined && !isStart) checked = { sumBS: sumBSBefore, sumFS, rl };
   }
 
-  const deltaRL = firstRL === null ? 0 : lastRL - firstRL;
-  return { rows: out, sumBS, sumFS, deltaRL, closure };
+  if (!checked) return { rows: out, sumBS: 0, sumFS: 0, deltaRL: 0, checkable: false, closure };
+  return {
+    rows: out, sumBS: checked.sumBS, sumFS: checked.sumFS, deltaRL: checked.rl - firstRL, checkable: true, closure,
+  };
 }
 
 /** RL of the row whose id is readingId, or undefined. */

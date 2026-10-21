@@ -160,7 +160,9 @@ table.lb td:first-child input { min-width: 64px; }
 table.lb td:nth-child(7) input { min-width: 90px; }
 table.lb td.calc { text-align: right; font-size: 14px; font-variant-numeric: tabular-nums; padding: 12px 2px; background: var(--grey-bg); }
 table.lb td.rl { font-weight: 800; }
+table.lb td.mv { white-space: nowrap; }
 .staref { display: block; font-size: 11px; white-space: nowrap; }
+.sums .muted { color: var(--muted); font-weight: 600; }
 .sums { display: flex; flex-wrap: wrap; gap: 4px 14px; font-weight: 700; font-variant-numeric: tabular-nums; margin-top: 6px; }
 
 /* toilet */

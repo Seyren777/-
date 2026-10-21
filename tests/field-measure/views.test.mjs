@@ -6,6 +6,7 @@ import { validateRoadSettings, mergeStations } from '../../apps/field-measure/sr
 import {
   setPointReading, setPointRL, deletePoint, copyFromPrevious,
 } from '../../apps/field-measure/src/views/station.js';
+import { moveRow } from '../../apps/field-measure/src/views/levelBook.js';
 import { computeLevelBook, rlOf } from '../../apps/field-measure/src/level.js';
 
 test('newStation has the centreline point', () => {
@@ -62,6 +63,28 @@ test('entering a reading appends an IS row and links it; editing updates it', ()
   assert.equal(p.levelBook.length, 2, 'clearing keeps the row in place');
   assert.equal(p.levelBook[1].is, null);
   assert.equal(cl.readingId, row.id);
+});
+
+test('a reading typed before any BS row creates no row and no link', () => {
+  const p = roadProject();
+  p.levelBook = [];
+  const st = p.stations[0];
+  const cl = st.section[0];
+  assert.equal(setPointReading(p, st, cl, '1.3'), false);
+  assert.equal(p.levelBook.length, 0);
+  assert.equal(cl.readingId, undefined);
+  p.levelBook.push({ id: 'is-only', point: 'x', is: 1.0 }); // IS rows alone do not count as a BS
+  assert.equal(setPointReading(p, st, cl, '1.3'), false);
+  assert.equal(p.levelBook.length, 1);
+});
+
+test('moveRow swaps neighbours, keeps ids, and ignores out-of-range moves', () => {
+  const p = { levelBook: [{ id: 'a' }, { id: 'b' }, { id: 'c' }] };
+  assert.equal(moveRow(p, 2, -1), true);
+  assert.deepEqual(p.levelBook.map((r) => r.id), ['a', 'c', 'b']);
+  assert.equal(moveRow(p, 0, -1), false);
+  assert.equal(moveRow(p, 2, 1), false);
+  assert.deepEqual(p.levelBook.map((r) => r.id), ['a', 'c', 'b']);
 });
 
 test('clearing then retyping a reading keeps the IS row position and its RL', () => {

@@ -52,10 +52,15 @@ function unlink(project, point) {
   delete point.readingId;
 }
 
-/** Staff reading for a section point: appends/updates an IS row in the level book; blank empties it in place. */
+export const NO_BS_MSG = 'ตั้งกล้องอ่าน BS บน BM ในสมุดระดับก่อน จึงจะลงค่าอ่านที่สถานีได้';
+
+/**
+ * Staff reading for a section point: appends/updates an IS row in the level book; blank empties it in place.
+ * Returns false (nothing changed) when a new row would be created before the book has any BS row.
+ */
 export function setPointReading(project, station, point, value) {
   const v = typeof value === 'number' ? value : parseNum(value);
-  if (Number.isNaN(v)) return;
+  if (Number.isNaN(v)) return true;
   delete point.rl;
   const row = point.readingId ? project.levelBook.find((r) => r.id === point.readingId) : undefined;
   if (v === null) {
@@ -63,8 +68,9 @@ export function setPointReading(project, station, point, value) {
     // computeLevelBook skips a row with no readings. Only deletePoint / RL entry unlink.
     if (row) row.is = null;
     else delete point.readingId;
-    return;
+    return true;
   }
+  if (!row && !project.levelBook.some((r) => !blank(r.bs))) return false;
   if (row) {
     row.is = v;
     row.point = point.label || '';
@@ -74,6 +80,7 @@ export function setPointReading(project, station, point, value) {
     project.levelBook.push(r);
     point.readingId = r.id;
   }
+  return true;
 }
 
 /** RL typed directly: sets rl and drops any reading link. */
@@ -180,7 +187,11 @@ function sectionCard(p, st) {
     rlSpans.set(pt, rlSpan);
     const value = mode === 'reading'
       ? numInput(pt.readingId ? p.levelBook.find((r) => r.id === pt.readingId)?.is : null,
-        (v) => { setPointReading(p, st, pt, v); save(p); refreshRL(); }, { placeholder: 'ค่าอ่านไม้', digits: 3 })
+        (v) => {
+          if (!setPointReading(p, st, pt, v)) { value.value = ''; toast(NO_BS_MSG, true); return; }
+          save(p);
+          refreshRL();
+        }, { placeholder: 'ค่าอ่านไม้', digits: 3 })
       : numInput(pt.rl, (v) => { setPointRL(p, pt, v); save(p); refreshRL(); }, { placeholder: 'RL (m)', digits: 3 });
     const modeBtn = h('button', {
       type: 'button', class: 'chip mode',
@@ -242,7 +253,7 @@ function sectionCard(p, st) {
   const card = h('section', { class: 'card' },
     h('h2', null, 'รูปตัดตามขวาง'),
     h('p', { class: 'hint' }, 'ระยะ: ลบ = ซ้าย, บวก = ขวา · ค่าอ่านไม้จะลงสมุดระดับเป็น IS อัตโนมัติ'),
-    hasBS ? null : h('p', { class: 'warn' }, 'ยังไม่มี BS ในสมุดระดับ — ตั้งกล้องอ่าน BS บน BM ก่อน RL จึงจะคำนวณได้'),
+    hasBS ? null : h('p', { class: 'warn' }, NO_BS_MSG),
     h('div', { class: 'chips' }, chips),
     h('datalist', { id: 'fm-labels' }, CHIPS.map(([l]) => h('option', { value: l }))),
     st.section.map((pt, i) => rowOf(pt, i)),

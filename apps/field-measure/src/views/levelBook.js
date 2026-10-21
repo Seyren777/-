@@ -26,6 +26,14 @@ function deleteRow(p, i) {
   p.levelBook.splice(i, 1);
 }
 
+/** Swap row i with its neighbour (dir -1 up, +1 down). Rows keep their ids, so station links stay valid. */
+export function moveRow(p, i, dir) {
+  const j = i + dir;
+  if (i < 0 || j < 0 || i >= p.levelBook.length || j >= p.levelBook.length) return false;
+  [p.levelBook[i], p.levelBook[j]] = [p.levelBook[j], p.levelBook[i]];
+  return true;
+}
+
 export function levelBook(p) {
   const cells = []; // per row: {hi, rl} spans
   const sums = h('div', { class: 'sums' });
@@ -40,13 +48,15 @@ export function levelBook(p) {
     });
     const diff = book.sumBS - book.sumFS;
     const check = Math.abs(diff - book.deltaRL) < 0.0005;
-    sums.replaceChildren(...[
+    sums.replaceChildren(...(book.checkable ? [
       h('span', null, `ΣBS ${fmt(book.sumBS, 3)}`),
       h('span', null, `ΣFS ${fmt(book.sumFS, 3)}`),
       h('span', null, `ΣBS−ΣFS ${fmt(diff, 3)}`),
       h('span', null, `ΔRL ${fmt(book.deltaRL, 3)}`),
       check ? null : h('b', { class: 'warn' }, 'ΣBS−ΣFS ไม่เท่ากับ RL สุดท้าย − RL แรก — ตรวจแถวที่ขาดค่า'),
-    ].filter(Boolean));
+    ] : [
+      h('span', { class: 'muted' }, 'ยังไม่มี FS — ตรวจผลรวมได้เมื่อปิดชุดตั้งกล้อง'),
+    ]).filter(Boolean));
     const b = closureBanner(book.closure);
     banner.className = `banner ${b.cls}`;
     banner.textContent = b.text;
@@ -64,6 +74,15 @@ export function levelBook(p) {
           ? h('small', { class: 'staref' }, `STA ${formatSta(Number(r.staRef))}`) : null),
       n('bs'), n('is'), n('fs'), hi, rl,
       h('td', null, textInput(r.note, (v) => { r.note = v; save(p); }, { 'aria-label': 'หมายเหตุ' })),
+      h('td', { class: 'mv' },
+        h('button', {
+          type: 'button', class: 'btn small', 'aria-label': 'ขึ้น', title: 'ขึ้น', disabled: i === 0,
+          onClick: () => { if (moveRow(p, i, -1)) { save(p); render(); } },
+        }, '▲'),
+        h('button', {
+          type: 'button', class: 'btn small', 'aria-label': 'ลง', title: 'ลง', disabled: i === p.levelBook.length - 1,
+          onClick: () => { if (moveRow(p, i, 1)) { save(p); render(); } },
+        }, '▼')),
       h('td', null, h('button', {
         type: 'button', class: 'btn danger small', 'aria-label': 'ลบแถว',
         onClick: () => {
@@ -92,7 +111,7 @@ export function levelBook(p) {
       banner,
       h('div', { class: 'scroll-x' },
         h('table', { class: 'lb' },
-          h('thead', null, h('tr', null, ['จุด', 'BS', 'IS', 'FS', 'HI', 'RL', 'หมายเหตุ', ''].map((t) => h('th', null, t)))),
+          h('thead', null, h('tr', null, ['จุด', 'BS', 'IS', 'FS', 'HI', 'RL', 'หมายเหตุ', 'ขึ้น ▲ / ลง ▼', ''].map((t) => h('th', null, t)))),
           h('tbody', null, rows))),
       h('button', { type: 'button', class: 'btn', onClick: add }, '+ เพิ่มแถว'),
       sums),

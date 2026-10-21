@@ -94,3 +94,58 @@ test('input rows are not mutated', () => {
   computeLevelBook(rows, BMS);
   assert.equal('rl' in rows[0], false);
 });
+
+test('IS/FS before the first BS has no RL or HI; a later BS row starts the run', () => {
+  const onBM = computeLevelBook([
+    { id: 'a', point: 'กึ่งกลาง', is: 1.2 },
+    { id: 'b', point: 'BM1', bs: 1.5 },
+  ], BMS);
+  assert.equal(onBM.rows[0].rl, undefined);
+  assert.equal(onBM.rows[0].hi, undefined);
+  near(onBM.rows[1].rl, 100);
+  near(onBM.rows[1].hi, 101.5);
+
+  const unknown = computeLevelBook([
+    { id: 'a', point: 'กึ่งกลาง', is: 1.2 },
+    { id: 'b', point: 'XX', bs: 1.5 },
+  ], BMS);
+  assert.equal(unknown.rows[0].rl, undefined);
+  near(unknown.rows[1].rl, 0);
+});
+
+test('sum check: book without FS is not checkable and reports no sums', () => {
+  const book = computeLevelBook([
+    { id: 'a', point: 'BM1', bs: 1.5 },
+    { id: 'b', point: 'P1', is: 1.2 },
+    { id: 'c', point: 'P2', is: 1.8 },
+  ], BMS);
+  assert.equal(book.checkable, false);
+  assert.equal(book.sumBS, 0);
+  assert.equal(book.sumFS, 0);
+  assert.equal(book.deltaRL, 0);
+  assert.equal(computeLevelBook([], BMS).checkable, false);
+});
+
+test('sum check covers rows only up to the last FS; a trailing IS is ignored', () => {
+  const book = computeLevelBook([
+    { id: 'a', point: 'BM1', bs: 1.5 },
+    { id: 'b', point: 'BM1', fs: 1.3 },
+    { id: 'c', point: 'P1', is: 0.9 },
+  ], BMS);
+  assert.equal(book.checkable, true);
+  near(book.sumBS, 1.5);
+  near(book.sumFS, 1.3);
+  near(book.deltaRL, 0.2);
+  near(book.sumBS - book.sumFS, book.deltaRL);
+});
+
+test('sum check: BS on the last FS row (change point) belongs to the next leg', () => {
+  const book = computeLevelBook([
+    { id: 'a', point: 'BM1', bs: 1.5 },
+    { id: 'b', point: 'TP1', bs: 1.2, fs: 1.0 },
+    { id: 'c', point: 'P1', is: 0.9 },
+  ], BMS);
+  near(book.sumBS, 1.5);
+  near(book.sumFS, 1.0);
+  near(book.deltaRL, 0.5);
+});
