@@ -72,15 +72,23 @@ export function exportRoad(project) {
     if (pl[key] && pl[key].length >= 2) d.polyline(layer, pl[key]);
   }
 
+  // Plan extent each side of CL (left = +Y, right = -Y); ticks reach +-1, feature circles r 0.3.
   let maxLeft = 0;
+  let maxRight = stations.length ? 1 : 0;
   for (const st of stations) {
     for (const k of ['pavL', 'shL', 'rowL']) {
       const w = num(st.widths?.[k]);
       if (w !== null) maxLeft = Math.max(maxLeft, w);
     }
+    for (const k of ['pavR', 'shR', 'rowR']) {
+      const w = num(st.widths?.[k]);
+      if (w !== null) maxRight = Math.max(maxRight, w);
+    }
     for (const f of st.features ?? []) {
       const o = num(f?.offset);
-      if (o !== null) maxLeft = Math.max(maxLeft, -o);
+      if (o === null) continue;
+      maxLeft = Math.max(maxLeft, -o + 0.3);
+      maxRight = Math.max(maxRight, o + 0.3);
     }
   }
   const x0 = stations.length ? stations[0].sta : 0;
@@ -123,7 +131,7 @@ export function exportRoad(project) {
   const maxGrid = Math.max(...secs.map((s) => (s.top - s.datum) * vExag));
   // Brief: range*vExag + 3; enlarged when the grid, title and labels need more room.
   const cellH = Math.max(maxRange * vExag + 3, titleBand + maxGrid + labelBand + 2);
-  const yStart = -(maxLeft + 10);
+  const yStart = -(Math.max(maxLeft, maxRight) + 10); // below the full plan extent
 
   secs.forEach((s, i) => {
     const col = i % 3;

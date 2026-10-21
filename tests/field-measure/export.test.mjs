@@ -158,6 +158,22 @@ test('road: sections are tiled below the plan, start y = -(maxLeft + 10)', () =>
   assert.ok(xs[0] < xs[1] && xs[1] < xs[2]);
 });
 
+test('road: asymmetric road (wide right side) keeps sections below the whole plan', () => {
+  const p = roadProject();
+  for (const st of p.stations) st.widths = { ...st.widths, rowL: 3, rowR: 20 };
+  p.stations[1].features = [{ kind: 'บ่อพัก', offset: 18, note: '' }];
+  const ents = entities(exportRoad(p));
+  const isSection = (e) => e.layer && e.layer.startsWith('XS-');
+  const planYs = ents.filter((e) => !isSection(e)).flatMap((e) => {
+    const ys = e.pts.map((q) => q[1]);
+    return e.type === 'CIRCLE' ? ys.map((y) => y - 0.3) : ys;
+  });
+  const planMin = Math.min(...planYs);
+  assert.ok(planMin <= -20 + 1e-9, `plan should reach the right ROW: ${planMin}`);
+  const secMax = Math.max(...ents.filter(isSection).flatMap((e) => e.pts.map((q) => q[1])));
+  assert.ok(secMax < planMin, `section entity at y ${secMax} is not below plan bottom ${planMin}`);
+});
+
 test('road: text heights follow the scales', () => {
   const ents = entities(exportRoad(roadProject()));
   const heights = (layer) => [...new Set(of(ents, 'TEXT', layer).map((t) => t.h))];
